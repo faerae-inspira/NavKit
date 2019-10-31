@@ -61,10 +61,12 @@ public extension CustomizableNavigation where Self: UIViewController, Self: UIGe
         navigationBar?.setBackgroundImage(UIImage(), for: .default)
         navigationBar?.shadowImage = isBarUsingBottomShadow ? nil : UIImage()
 
-        var barView = navigationBar?.subviews.first?.subviews.first
+        // var barView = navigationBar?.subviews.first?.subviews.first
+        var barView = navigationBar?.subviews.first?.viewWithTag(83283174272372) // fixed iOS 13
 
         if barView == nil || barView != nil && type(of: barView!) != UIView.self {
             barView = UIView(frame: CGRect.zero)
+            barView?.tag = 83283174272372 // fixed iOS 13
 
             if let navBarSize = navigationBar?.frame.size {
                 let statusBarSize = UIApplication.shared.statusBarFrame.size
@@ -78,8 +80,8 @@ public extension CustomizableNavigation where Self: UIViewController, Self: UIGe
 
         var titleTextAttributes = navigationBar?.titleTextAttributes ?? [:]
 
-        titleTextAttributes[NSAttributedStringKey.foregroundColor] = titleColor
-        titleTextAttributes[NSAttributedStringKey.font] = titleFont
+        titleTextAttributes[NSAttributedString.Key.foregroundColor] = titleColor
+        titleTextAttributes[NSAttributedString.Key.font] = titleFont
 
         navigationBar?.titleTextAttributes = titleTextAttributes
 
